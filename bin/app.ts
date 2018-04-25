@@ -5,6 +5,8 @@ import {petController} from '../server/controllers/petController';
 
 export const app = express();
 
+app.use(express.static(__dirname + '/../client/app'));
+
 // middleware for parsing application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -22,6 +24,15 @@ app.use((req, res, next) => {
 });
 
 app.use('/pet', petController); 
+
+/*app.get('*', function(req, res){
+    //res.sendFile('../client/app/index.html');
+    res.sendFile('C:/Projetos/GitHub/node-hackathon-petstore/client/app/index.html');
+});*/
+
+app.get('*', function (req, res) {
+    res.sendFile('index.html', {root: "./client/app"});
+});
 
 app.use(errorhandler({
     debug: process.env.ENV !== 'prod',
