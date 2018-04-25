@@ -1,4 +1,4 @@
-import {Table, Column, Model, ForeignKey, BelongsTo} from 'sequelize-typescript';
+import {Table, Column, Model, ForeignKey, BelongsTo, Default, DataType} from 'sequelize-typescript';
 import {Pet} from './pet'
 
 @Table
@@ -8,12 +8,10 @@ export class Order extends Model<Order> {
 
     @Column
     shipDate: Date;
-
-    @Column
-    status: string;
-
-    @Column
-    orderStatus: OrderStatus;
+    
+    @Default('Placed')
+    @Column(DataType.ENUM('Placed', 'Approved', 'Delivered', 'Completed'))
+    status: OrderStatus;
 
     @ForeignKey(() => Pet)
     @Column

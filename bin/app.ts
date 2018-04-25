@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import errorhandler from 'strong-error-handler';
 import {petController} from '../server/controllers/petController';
+import { orderController } from '../server/controllers/orderController';
 
 export const app = express();
 
@@ -22,6 +23,8 @@ app.use((req, res, next) => {
 });
 
 app.use('/pet', petController); 
+app.use('/order', orderController); 
+
 
 app.use(errorhandler({
     debug: process.env.ENV !== 'prod',
